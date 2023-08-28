@@ -1,0 +1,106 @@
+<h1 class="text-blue-400 py-5 text-center text-xl font-medium">Todo App</h1>
+
+<div *ngIf="loading">
+  <p>Loading...</p>
+</div>
+<div class="md:px-20 px-5 flex justify-center">
+    <div>
+      <h2>{{ newUser.id ? 'Edit User' : 'Create New User' }}</h2>
+      <form (ngSubmit)="newUser.id ? saveEditedUser() : createUser()" #userForm="ngForm" class="flex gap-5 flex-wrap items-center">
+        <label for="username">Username:</label>
+        <input
+          class="border py-2 border-gray-200 rounded-md focus:outline-none w-[15%]"
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="newUser.username"
+          required
+        />
+  
+        <label for="email">Email:</label>
+        <input
+          class="border py-2 border-gray-200 rounded-md focus:outline-none w-[15%]"
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="newUser.email"
+          required
+        />
+  
+        <label for="age">Age:</label>
+        <input
+          class="border py-2 border-gray-200 rounded-md focus:outline-none w-[15%]"
+          type="number"
+          id="age"
+          name="age"
+          [(ngModel)]="newUser.age"
+          required
+        />
+  
+        <label for="nationality">Nationality:</label>
+        <input
+          class="border py-2 border-gray-200 rounded-md focus:outline-none w-[15%]"
+          type="text"
+          name="nationality"
+          id="nationality"
+          [(ngModel)]="newUser.nationality"
+          required
+        />
+  
+        <button
+          type="submit"
+          class="py-2 w-40 bg-blue-500 text-white cursor-pointer rounded-lg border"
+        >
+          {{ newUser.id ? 'Save Changes' : 'Create New User' }}
+        </button>
+      </form>
+    </div>
+  </div>
+  
+  
+
+
+
+<div
+  *ngIf="users && !loading"
+  class="py-10 flex justify-center flex-col items-center w-full"
+>
+  <h2 class="text-xl font-semibold text-center">User List</h2>
+  <table class="border">
+    <thead>
+      <tr class="text-center py-3 border">
+        <th class="p-3">ID</th>
+        <th class="p-3">Username</th>
+        <th class="p-3">Email</th>
+        <th class="p-3">Age</th>
+        <th class="p-3">Nationality</th>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users" class="border">
+        <td class="p-3 text-center border">{{ user.id }}</td>
+        <td class="p-3 text-center border">{{ user.username }}</td>
+        <td class="p-3 text-center border">{{ user.email }}</td>
+        <td class="p-3 text-center border">{{ user.age }}</td>
+        <td class="p-3 text-center border">{{ user.nationality }}</td>
+        <td class="px-3">
+          <button
+            (click)="editUser(user.id)"
+            class="py-1 px-3 bg-green-500 text-white cursor-pointer rounded-lg border"
+          >
+            Edit
+          </button>
+        </td>
+        <td>
+          <button
+            (click)="deleteUser(user.id)"
+            class="py-1 px-3 bg-red-500 text-white cursor-pointer rounded-lg"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
